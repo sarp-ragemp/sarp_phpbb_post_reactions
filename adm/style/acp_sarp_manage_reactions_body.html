@@ -1,0 +1,76 @@
+{% INCLUDE 'overall_header.html' %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.1/dist/cdn.min.js"></script>
+
+<div x-data="{
+    reactions: [],
+    addReaction() {
+        this.reactions = [...this.reactions, {
+            reaction_name: '',
+            reaction_score: 0,
+            reaction_image_path: '',
+        }]
+    },
+
+    saveReaction() {},
+
+    deleteReaction(index) {
+        this.reactions = this.reactions.filter((reaction, i) => i !== index)
+    },
+}">
+    <div class="pure-g">
+        <div class="pure-u-1-4">
+            <h1>{{ lang('ACP_SARP_REACTIONS_MANAGE_TITLE') }}</h1>
+        </div>
+        
+        <div class="pure-u-1-2" style="display: flex; align-items: flex-end;">
+            <button class="pure-button" style="background-color: deepskyblue; color: white; font-weight: 600;" type="button" @click="addReaction()">
+                Add reaction
+            </button>
+        </div>
+    </div>
+
+    <form class="pure-form">
+        <h3>Reactions</h3>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <template x-for="(reaction, index) in reactions" :key="index">
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <div>
+                        <div style="width: 50px; height: 50px; border-radius: 100%; background-color: gray;"></div>
+                    </div>
+        
+                    <div style="display: flex; flex-direction: column; gap: 3px;">
+                        <div>
+                            <input type="text" x-model="reaction.reaction_name" placeholder="Type reaction name" />
+                            <input type="number" x-model="reaction.reaction_score" />
+                        </div>
+                        <input type="text" x-model="reaction.reaction_image_path" placeholder="Reaction image path relative to phpBB folder" />
+                    </div>
+    
+                    <div style="display: flex; gap: 3px;">
+                        <button type="button" class="pure-button" style="display: flex; align-items: center; background-color: white; color: black; text-transform: uppercase; font-weight: 600; border: 2px; border-color: green; border-style: solid;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#22c55e" d="M21 7v12q0 .825-.588 1.413T19 21H5q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h12l4 4Zm-9 11q1.25 0 2.125-.875T15 15q0-1.25-.875-2.125T12 12q-1.25 0-2.125.875T9 15q0 1.25.875 2.125T12 18Zm-6-8h9V6H6v4Z"/>
+                            </svg>
+    
+                            <span>Save</span>
+                        </button>
+    
+                        <button type="button" @click="deleteReaction(index)" class="pure-button" style="display: flex; align-items: center; background-color: darkred; color: white; text-transform: uppercase; font-weight: 600; border: 2px; border-color: transparent; border-style: solid;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#ffffff" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7Zm2-4h2V8H9v9Zm4 0h2V8h-2v9Z"/>
+                            </svg>
+    
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </form>
+</div>
+
+
+{% INCLUDE 'overall_footer.html' %}

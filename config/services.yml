@@ -1,0 +1,5 @@
+services:
+    sarp.reactions.listener:
+        class: sarp\reactions\event\main_listener
+        tags:
+            - { name: kernel.event_subscriber }
